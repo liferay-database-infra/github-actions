@@ -29,7 +29,7 @@ jobs:
           gh repo sync liferay-database-infra/liferay-portal --source liferay/liferay-portal --branch master
           git pull origin master
           ../github-actions/scripts/intruders.sh "$SHA" > intruders.txt
-          if grep -q "Intruders" intruders.txt; then
+          if grep -qE "Intruders|Added|Removed" intruders.txt; then
             gh issue create --title "Intruders 👤" --body "$(cat intruders.txt)" --repo liferay-database-infra/liferay-portal
           fi
         env:
